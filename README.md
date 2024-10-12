@@ -22,6 +22,8 @@ Gerenciamento de chamados
   <li>Docker</li>
 </ul>
 
+<hr>
+
 ## Backlog do Produto
 <ul>
   <li>1 - Como gestor, quero visualizar uma lista de chamados em aberto para acompanhar o status de cada um.</li>
@@ -40,9 +42,12 @@ Gerenciamento de chamados
 
 </ul> 
 
+<hr>
+
 ## Backlog do Sprint
 <ul>
   <li>História 1: Como gestor, quero visualizar uma lista de chamados em aberto para acompanhar o status de cada um.</li>
+    <p></p>
     <p>Criar o container do aplicativo no Docker.</p>
     <p>Instalar banco de dados para armazenar chamadas e dados de usuários.</p>
     <p>Instalar node.js.</p>
