@@ -42,15 +42,12 @@ Gerenciamento de chamados
 
 ## Backlog do Sprint
 <ul>
-  <li>História 1: Como gestor, quero visualizar uma lista de chamados em aberto para acompanhar o status de cada um.
-    <li>Criar o container do aplicativo no Docker.</li>
-    <li>Instalar banco de dados para armazenar chamadas e dados de usuários.</li>
-    <li>Instalar node.js.</li>
-    <li>Fazer código backend que preencha e atualize tabelas do banco de dados com as entradas dos usuários.</li>
-    <li>Implementar a interface visual de preenchimento de dados e visualização de chamados.</li>
-    <li>Exibir status de cada chamado.</li>
-  </li>
-
-
+  <li>História 1: Como gestor, quero visualizar uma lista de chamados em aberto para acompanhar o status de cada um.</li>
+    <p>Criar o container do aplicativo no Docker.</p>
+    <p>Instalar banco de dados para armazenar chamadas e dados de usuários.</p>
+    <p>Instalar node.js.</p>
+    <p>Fazer código backend que preencha e atualize tabelas do banco de dados com as entradas dos usuários.</p>
+    <p>Implementar a interface visual de preenchimento de dados e visualização de chamados.</p>
+    <p>Exibir status de cada chamado.</p>
   
 </ul>
