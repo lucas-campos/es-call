@@ -21,3 +21,21 @@ Gerenciamento de chamados
   <li>PostgreSql</li>
   <li>Docker</li>
 </ul>
+
+## Backlog
+<ul>
+  <li>1 - Como gestor, quero visualizar uma lista de chamados em aberto para acompanhar o status de cada um.</li>
+  <li>2 - Como gestor, quero atribuir um técnico a um chamado.</li>
+  <li>3 - Como gestor, quero realocar chamados de um técnico para outro, caso o técnico esteja indisponível.</li>
+  <li>4 - Como gestor, quero priorizar chamados com base em sua importância, para que eles sejam resolvidos primeiro.</li>
+  <li>5 - Como gestor, quero gerar relatórios semanais sobre a quantidade de chamados abertos, fechados e em andamento, para acompanhar a performance da equipe.</li>
+  <li>6 - Como gestor, quero poder cancelar um chamado que não precisa mais de atendimento.</li>
+  <li>7 - Como técnico, quero ser notificado quando um chamado for atribuído a mim.</li>
+  <li>8 - Como técnico, quero poder pausar um chamado quando estiver aguardando informações do cliente ou alguma outra necessidade, para que o gestor saiba o andamento do chamado e as demandas dele.</li>
+  <li>9 - Como cliente, quero poder abrir chamados, especificando minhas necessidades.</li>
+  <li>10 - Como cliente, quero abrir chamados com anexos (imagens ou documentos), para fornecer mais informações ao técnico. </li>
+  <li>11 - Como cliente, quero receber atualizações sobre o status do meu chamado, para que eu saiba quando ele está sendo resolvido.</li>
+  <li>12 - Como cliente, quero poder reabrir um chamado concluído se o problema persistir, para que o atendimento continue sem que eu tenha que abrir um novo chamado.</li>
+  <li>13 - Como gestor, quero saber do feedback do cliente sobre o atendimento e solução do técnico.</li>
+
+</ul> 
