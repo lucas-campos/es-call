@@ -50,7 +50,7 @@ docker-compose down
 
 # **Comando úteis docker-compose**
 <ul>
-    <li><b>sudo service docker start</b>: inicia docker no WSL.</li:
+    <li><b>sudo service docker start</b>: inicia docker no WSL.</li>
     <li><b>docker-compose up</b>: cria e inicia os contêineres.</li>
     <li><b>docker-compose build</b>: realiza apenas a etapa de build das imagens que serão utilizadas.</li>
     <li><b>docker-compose logs</b>: visualiza os logs dos contêineres.</li>
