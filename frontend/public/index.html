@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>es-call - Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background-color: #2C3E50;
+            color: white;
+            text-align: center;
+            padding: 20px 0;
+        }
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            padding: 20px;
+        }
+        .block {
+            background-color: #3498db;
+            color: white;
+            width: 200px;
+            margin: 10px;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .block:hover {
+            background-color: #2980b9;
+        }
+        .block h3 {
+            margin: 10px 0;
+        }
+        .block p {
+            font-size: 14px;
+        }
+        footer {
+            background-color: #2C3E50;
+            color: white;
+            text-align: center;
+            padding: 10px 0;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>es-call Dashboard</h1>
+    </header>
+
+    <div class="container">
+        <div class="block" onclick="handleClick('Create Ticket')">
+            <h3>Create Ticket</h3>
+            <p>Open a new support ticket</p>
+        </div>
+        <div class="block" onclick="handleClick('View Tickets')">
+            <h3>View Tickets</h3>
+            <p>See all open tickets</p>
+        </div>
+        <div class="block" onclick="handleClick('Assign Tickets')">
+            <h3>Assign Tickets</h3>
+            <p>Assign tickets to technicians</p>
+        </div>
+        <div class="block" onclick="handleClick('Ticket History')">
+            <h3>Ticket History</h3>
+            <p>View past completed tickets</p>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 es-call - All rights reserved</p>
+    </footer>
+
+    <script>
+        function handleClick(option) {
+            alert("Script Click em : " + option);
+        }
+    </script>
+</body>
+</html>
