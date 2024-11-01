@@ -15,6 +15,7 @@
         </div>
         <ul class="menu" >
             <li><div class="menu-task" onclick="show('opened-calls')">Chamados abertos</div></li>
+            <li><div class="menu-task" onclick="show('execution-calls')">Chamados em execução</div></li>
             
             <li><div href="#"></div></li>
         </ul>
@@ -28,12 +29,19 @@
         
     </div>
 
+    <div id="execution-calls" class="call-list hidden">
+        <h2>Chamados em Execução</h2>
+
+        
+    </div>
+
     <script src="http://localhost:8080/scripts.js"></script>
 
     <script>
 
         function show(element){
             document.getElementById("opened-calls").classList.add("hidden");
+            document.getElementById("execution-calls").classList.add("hidden");
             
             document.getElementById(element).classList.remove("hidden");
         }
