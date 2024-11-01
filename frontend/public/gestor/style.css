@@ -182,3 +182,26 @@ table th {
     color:#aef27f;
 
 }
+
+.back-button {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    background-color: #171717; /* Cor de fundo preta */
+    color: #ffffff; /* Cor do texto (seta) branca */
+    border: none;
+    width: 40px; /* Largura do botão */
+    height: 40px; /* Altura do botão */
+    border-radius: 50%; /* Forma redonda */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 24px; /* Tamanho da seta */
+    z-index: 1000;
+    transition: background-color 0.3s ease;
+}
+
+.back-button:hover {
+    background-color: #000000; /* Cor ao passar o mouse */
+}
