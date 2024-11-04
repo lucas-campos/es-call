@@ -19,4 +19,17 @@ export default class CallService {
             CallConstantes.ALLOCATED_STATUS
         );
     }
+
+    async addLowPriority(callId: number): Promise<void> {
+        this.callRepository.setPriority(callId, CallConstantes.LOW_PRIORITY);
+    }
+
+    async addMediumPriority(callId: number): Promise<void> {
+        this.callRepository.setPriority(callId, CallConstantes.MEDIUM_PRIORITY);
+    }
+
+    async addHighPriority(callId: number): Promise<void> {
+        this.callRepository.setPriority(callId, CallConstantes.HIGH_PRIORITY);
+    }
+
 }

@@ -41,4 +41,13 @@ export default class CallRepository {
             ]
         );
     }
+
+    async setPriority(callId: number, priority: string): Promise<void> {
+        await database.none("update postgres.escall.call set priority = $1 where id = $2",
+            [
+                priority,
+                callId
+            ]
+        );
+    }
 }
