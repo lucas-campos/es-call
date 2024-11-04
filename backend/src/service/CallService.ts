@@ -32,4 +32,19 @@ export default class CallService {
         this.callRepository.setPriority(callId, CallConstantes.HIGH_PRIORITY);
     }
 
+    async createNewCall(
+        name: string,
+        phoneNumber: string,
+        description: string,
+    ): Promise<void> {
+        const newCall = new Call(
+            null,
+            name,
+            phoneNumber,
+            description,
+            CallConstantes.WAITING_STATUS, CallConstantes.LOW_PRIORITY, new Date());
+        
+        this.callRepository.create(newCall);
+    }
+
 }

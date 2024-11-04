@@ -50,4 +50,25 @@ export default class CallRepository {
             ]
         );
     }
+
+    private async nextId(): Promise<number> {
+        const maxId = await database.one("select max(id) as max_id from postgres.escall.call");
+        return maxId.max_id + 1; 
+    }
+
+    async create(call: Call): Promise<void> {
+        const nextId = await this.nextId();
+
+        await database.none("insert into postgres.escall.call (id, name, phone_number, description, status, created_at, priority) values ($1, $2, $3, $4, $5, $6, $7)",
+            [
+                nextId,
+                call.getName(),
+                call.getPhoneNumber(),
+                call.getDescription(),
+                call.getStatus(),
+                call.getCreatedAt(),
+                call.getPriority()
+            ]
+        );
+    }
 }

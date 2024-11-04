@@ -19,31 +19,31 @@ export default class Call {
         this.finished = null;
     }
 
-    getid(): number|null {
+    getId(): number|null {
         return this.id;
     }
 
-    getname(): string {
+    getName(): string {
         return this.name;
     }
 
-    getphoneNumber(): string {
+    getPhoneNumber(): string {
         return this.phoneNumber;
     }
 
-    getdescription(): string {
+    getDescription(): string {
         return this.description;
     }
 
-    getstatus(): string {
+    getStatus(): string {
         return this.status;
     }
 
-    getpriority(): string {
+    getPriority(): string {
         return this.priority;
     }
 
-    getcreatedAt(): Date {
+    getCreatedAt(): Date {
         return this.createdAt;
     }
 
