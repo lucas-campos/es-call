@@ -25,4 +25,20 @@ export default class CallRepository {
         })
         return calls;
     }
+
+    async addSupportTechnician(
+        callId: number,
+        supportTechnicianId: number,
+        technicianAddedDate: Date,
+        status: string
+    ): Promise<void> {
+        await database.none("update postgres.escall.call set support_technician_id = $1, technician_added_date = $2, status = $3 where id = $4",
+            [
+                supportTechnicianId,
+                technicianAddedDate,
+                status,
+                callId
+            ]
+        );
+    }
 }
