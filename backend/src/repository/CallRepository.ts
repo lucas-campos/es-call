@@ -51,6 +51,16 @@ export default class CallRepository {
         );
     }
 
+    async setStatus(callId: number, status: string): Promise<void> {
+        await database.none("update postgres.escall.call set status = $1, finished_at = $2 where id = $3",
+            [
+                status,
+                new Date(),
+                callId
+            ]
+        );
+    }
+
     private async nextId(): Promise<number> {
         const maxId = await database.one("select max(id) as max_id from postgres.escall.call");
         return maxId.max_id + 1; 
