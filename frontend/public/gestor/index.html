@@ -227,12 +227,13 @@
         const fbody = document.querySelector("#finishedTicketsTable tbody");
 
         // Function to load calls
-        async function loadCalls() {
+        async function loadCalls(supportTechnicianData) {
             cbody.innerHTML = '';
             rbody.innerHTML = '';
             fbody.innerHTML = '';
 
             data = await (await fetch('http://localhost:3000/call')).json();
+            // supportTechnicianData = await (await fetch('http://localhost:3000/support-technician')).json();
 
             data.forEach(call => {
                 // Create a new row
@@ -265,18 +266,21 @@
                 var technicianDisplay = "N/D";
 
                 if(call.supportTechnicianId){
-                    technicianDisplay = call.supportTechnicianId;
+                    technicianDisplay = call.supportTechnicianName;
                 }
 
+                var technicianToCall = '';
+                for (i = 0; i < supportTechnicianData.length; i++) {
+                    technicianToCall += `<a href="#" onclick="setTechnician(${call.id}, ${supportTechnicianData[i].id})">${supportTechnicianData[i].name}</a>`                    
+                }
+                
                 var technicianDropdown =`
-                    <div class="dropdown">
-                        <button onclick="dropdownTechnician(${call.id})" class="dropbtn">${technicianDisplay}</button>
-                        <div id="dropdownTechnicianId${call.id}" class="dropdown-content">
-                            <a href="#" onclick="setTechnician(${call.id}, 1)">1</a>
-                            <a href="#" onclick="setTechnician(${call.id}, 2)">2</a>
-                            <a href="#" onclick="setTechnician(${call.id}, 3)">3</a>
-                        </div>
-                    </div> 
+                <div class="dropdown">
+                    <button onclick="dropdownTechnician(${call.id})" class="dropbtn">${technicianDisplay}</button>
+                    <div id="dropdownTechnicianId${call.id}" class="dropdown-content">
+                        ${technicianToCall}
+                    </div>
+                </div> 
                 `
                 
                 // Date Format - Creation
@@ -354,18 +358,13 @@
                 // Append the row to the table body
                 tbody.appendChild(row);
             });
+            return data;
         }
 
-
-        
-
-
-        
-
         // Call the functions to get data
-        loadCalls();
-        loadTechniciansTable();
-        
+        loadTechniciansTable().then((supportTechnicianData) => {
+            loadCalls(supportTechnicianData);
+        });
 
 
     </script>
