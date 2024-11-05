@@ -47,4 +47,8 @@ export default class CallService {
         this.callRepository.create(newCall);
     }
 
+    async getAllBySupportTechnician(supportTechnicianId: number): Promise<Call[]> {
+        return this.callRepository.getAllBySupportTechnician(supportTechnicianId);
+    }
+
 }
