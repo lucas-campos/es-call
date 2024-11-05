@@ -4,6 +4,7 @@ export default class Call {
     private supportTechnicianId: number|null;
     private technicianAddedDate: Date|null;
     private finished: Date|null;
+    private supportTechnicianName: string|null;
 
     constructor(
         private readonly id: number|null,
@@ -17,6 +18,7 @@ export default class Call {
         this.supportTechnicianId = null;
         this.technicianAddedDate = null;
         this.finished = null;
+        this.supportTechnicianName = null;
     }
 
     getId(): number|null {
@@ -67,4 +69,12 @@ export default class Call {
     getFinished(): Date|null {
         return this.finished;
     }
+
+    setSupportTechnicianName(supportTechnicianName: string) {
+        this.supportTechnicianName = supportTechnicianName;
+    }
+    getSupportTechnicianName(): string|null {
+        return this.supportTechnicianName;
+    }
+
 }

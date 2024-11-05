@@ -1,13 +1,26 @@
 import Call from "../entity/Call";
 import CallConstantes from "../entity/CallConstantes";
+import SupportTechnician from "../entity/SupportTechnician";
 import CallRepository from "../repository/CallRepository";
+import SupportTechnicianRepository from "../repository/SupportTechnicianRepository";
 
 export default class CallService {
 
     private callRepository: CallRepository = new CallRepository();
+    private supportTechnicianRepository: SupportTechnicianRepository = new SupportTechnicianRepository();
 
     async getAll(): Promise<Call[]> {
-        return this.callRepository.getAll();
+        const supportTechnicians = await this.supportTechnicianRepository.getAll();
+        const calls = await this.callRepository.getAll();
+
+        calls.forEach(call => {
+            const stId = call.getSupportTechnicianId();
+            if (stId !== null) {
+                const stName = supportTechnicians.filter(supportTechnician => supportTechnician.getId() === stId)[0].getName();
+                call.setSupportTechnicianName(stName);
+            }
+        });
+        return calls;
     }
 
     async addSupportTechnician(callId: number, supportTechnicianId: number): Promise<void> {
@@ -48,7 +61,17 @@ export default class CallService {
     }
 
     async getAllBySupportTechnician(supportTechnicianId: number): Promise<Call[]> {
-        return this.callRepository.getAllBySupportTechnician(supportTechnicianId);
+        const supportTechnicians = await this.supportTechnicianRepository.getAll();
+        const calls = await this.callRepository.getAllBySupportTechnician(supportTechnicianId);
+
+        calls.forEach(call => {
+            const stId = call.getSupportTechnicianId();
+            if (stId !== null) {
+                const stName = supportTechnicians.filter(supportTechnician => supportTechnician.getId() === stId)[0].getName();
+                call.setSupportTechnicianName(stName);
+            }
+        });
+        return calls;
     }
 
 }
