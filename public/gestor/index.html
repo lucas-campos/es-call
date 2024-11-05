@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestor - Chamados Abertos</title>
+    <link rel="stylesheet" href="http://localhost:8080/gestor/style.css">
+</head>
+<body>
+
+    <button class="back-button" onclick="window.history.back();">
+        &#8592;
+    </button>
+
+    <div class="sidebar">
+        <div class="profile">
+            <img src="https://img.freepik.com/premium-photo/picture-man-with-sign-that-says-he-is-smiling_1221953-49251.jpg" alt="Foto de Perfil" class="profile-pic">
+            <h3 style="font-size: 40px;">Gestor Bruno</h3>
+            <p>Gestor</p>
+        </div>
+        <ul class="menu" >
+            <li><div class="menu-task" onclick="show('opened-calls')">Chamados Abertos</div></li>
+            <li><div class="menu-task" onclick="show('running-calls')">Chamados em Andamento</div></li>
+            <li><div class="menu-task" onclick="show('closed-calls')">Chamados Fechados</div></li>
+            <li><div class="menu-task" onclick="show('technicians-list'); loadTechniciansTable()">Técnicos</div></li>
+            
+            <li><div href="#"></div></li>
+        </ul>
+
+        <div class="logo"> Es-Call </div>
+    </div>
+
+    <div id="opened-calls" class="dashboard">
+        <h2>Chamados Abertos</h2>
+        <table id="ticketsTable">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nome</th>
+                    <th>Descrição</th>
+                    <th>Prioridade</th>
+                    <th>Data de Criação</th>
+                    <th>Técnico Responsável</th>
+                    <th>Data de Alocação</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Dados dos chamados serão carregados aqui via JS -->
+            </tbody>
+        </table>
+    </div>
+
+    <div id="running-calls" class="call-list hidden">
+        <h2>Chamados em Andamento</h2>
+        <table id="runningTicketsTable">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nome</th>
+                    <th>Descrição</th>
+                    <th>Prioridade</th>
+                    <th>Data de Criação</th>
+                    <th>Técnico Responsável</th>
+                    <th>Data de Alocação</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Dados dos chamados serão carregados aqui via JS -->
+            </tbody>
+        </table>
+    </div>
+
+    <div id="closed-calls" class="call-list hidden">
+        <h2>Chamados Concluídos</h2>
+        <table id="finishedTicketsTable">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nome</th>
+                    <th>Descrição</th>
+                    <th>Prioridade</th>
+                    <th>Data de Criação</th>
+                    <th>Técnico Responsável</th>
+                    <th>Data de Alocação</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Dados dos chamados serão carregados aqui via JS -->
+            </tbody>
+        </table>
+    </div>
+
+    <div id="technicians-list" class="call-list hidden">
+        <h2>Técnicos</h2>
+
+        <table id="techniciansTable">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nome</th>
+                    <th>Chamados em andamento</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Dados dos chamados serão carregados aqui via JS -->
+            </tbody>
+        </table>
+
+        
+    </div>
+
+    <!-- <script src="http://localhost:8080/scripts.js"></script> -->
+
+    <script>
+
+        function show(element){
+            document.getElementById("opened-calls").classList.add("hidden");
+            document.getElementById("running-calls").classList.add("hidden");
+            document.getElementById("closed-calls").classList.add("hidden");
+            document.getElementById("technicians-list").classList.add("hidden");
+
+            document.getElementById(element).classList.remove("hidden");
+        }
+
+        // Priority Dropdown
+        function dropdownPriority(id) {
+            document.getElementById("dropdownPriorityId"+id).classList.toggle("show");
+        }
+
+        // Technician Dropdown
+        function dropdownTechnician(id) {
+            document.getElementById("dropdownTechnicianId"+id).classList.toggle("show");
+        }
+
+        // Close the dropdown menu if the user clicks outside of it
+        window.onclick = function(event) {
+            if (!event.target.matches('.dropbtn')) {
+                var dropdowns = document.getElementsByClassName("dropdown-content");
+                var i;
+                for (i = 0; i < dropdowns.length; i++) {
+                var openDropdown = dropdowns[i];
+                if (openDropdown.classList.contains('show')) {
+                    openDropdown.classList.remove('show');
+                }
+                }
+            }
+        } 
+
+        // set priority
+        async function setPriority(id,level){
+
+            let data = {
+                callId: id
+            };
+
+            let apiLink = "http://localhost:3000/call/set-medium-priority"; // default prevents no sending
+
+            if(level == "high"){
+                apiLink = "http://localhost:3000/call/set-high-priority";
+            }
+            if(level == "medium"){
+                apiLink = "http://localhost:3000/call/set-medium-priority";
+            }
+            if(level == "low"){
+                apiLink = "http://localhost:3000/call/set-low-priority";
+            }
+
+
+            try {
+                const response = await fetch(apiLink, {
+                    method: 'PUT',
+                    headers: {
+                    'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(data)
+                });
+
+                const result = await response.json();
+                console.log(result);
+                location.reload();
+
+                } 
+            
+                catch (error) {
+                console.error('Error:', error);
+                location.reload();
+            }
+
+        }
+
+
+        // set technician to call
+        async function setTechnician(callId, technicianId){
+            let data = {
+                "callId": callId,
+                "supportTechnicianId": technicianId
+            };
+
+            try {
+                const response = await fetch("http://localhost:3000/call/add-support-technician", {
+                    method: 'PUT',
+                    headers: {
+                    'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(data)
+                });
+
+                const result = await response.json();
+                console.log(result);
+                location.reload();
+
+                } 
+            
+                catch (error) {
+                console.error('Error:', error);
+                location.reload();
+            }
+
+        }
+        // opened
+        const cbody = document.querySelector("#ticketsTable tbody");
+
+        // running
+        const rbody = document.querySelector("#runningTicketsTable tbody");
+
+        // closed
+        const fbody = document.querySelector("#finishedTicketsTable tbody");
+
+        // Function to load calls
+        async function loadCalls() {
+            cbody.innerHTML = '';
+            rbody.innerHTML = '';
+            fbody.innerHTML = '';
+
+            data = await (await fetch('http://localhost:3000/call')).json();
+
+            data.forEach(call => {
+                // Create a new row
+                const row = document.createElement("tr");
+
+                var priorityDisplay = "N/D";
+
+                if(call.priority == "HIGH"){
+                    priorityDisplay = "Alta";
+                }
+                if(call.priority == "MEDIUM"){
+                    priorityDisplay = "Média";
+                }
+                if(call.priority == "LOW"){
+                    priorityDisplay = "Baixa";
+                }
+
+                var priorityDropdown =`
+                    <div class="dropdown">
+                        <button onclick="dropdownPriority(${call.id})" class="dropbtn">${priorityDisplay}</button>
+                        <div id="dropdownPriorityId${call.id}" class="dropdown-content">
+                            <a href="#" onclick="setPriority(${call.id}, 'high')">Alta</a>
+                            <a href="#" onclick="setPriority(${call.id}, 'medium')">Média</a>
+                            <a href="#" onclick="setPriority(${call.id}, 'low')">Baixa</a>
+                        </div>
+                    </div> 
+                `
+                
+
+                var technicianDisplay = "N/D";
+
+                if(call.supportTechnicianId){
+                    technicianDisplay = call.supportTechnicianId;
+                }
+
+                var technicianDropdown =`
+                    <div class="dropdown">
+                        <button onclick="dropdownTechnician(${call.id})" class="dropbtn">${technicianDisplay}</button>
+                        <div id="dropdownTechnicianId${call.id}" class="dropdown-content">
+                            <a href="#" onclick="setTechnician(${call.id}, 1)">1</a>
+                            <a href="#" onclick="setTechnician(${call.id}, 2)">2</a>
+                            <a href="#" onclick="setTechnician(${call.id}, 3)">3</a>
+                        </div>
+                    </div> 
+                `
+                
+                // Date Format - Creation
+                let creationDate = new Date(call.createdAt);
+                let formattedCreationDateTime = creationDate.toLocaleString("en-US", {
+                    year: "numeric",
+                    month: "long",
+                    day: "numeric",
+                    hour: "numeric",
+                    minute: "numeric",
+                    hour12: false
+                });
+
+                // Date Format - Alocation
+                let alocationDate = new Date(call.technicianAddedDate);
+                let formattedAlocationDateTime = alocationDate.toLocaleString("en-US", {
+                    year: "numeric",
+                    month: "long",
+                    day: "numeric",
+                    hour: "numeric",
+                    minute: "numeric",
+                    hour12: false
+                });
+
+                if (call.status == "WAITING"){
+                    formattedAlocationDateTime = "N/A";
+                }
+
+                // Create cells for each column
+                row.innerHTML = `
+                    <td>${call.id}</td>
+                    <td>${call.name}</td>
+                    <td>${call.description}</td>
+                    <td>${priorityDropdown}</td>
+                    <td>${formattedCreationDateTime}</td>
+                    <td>${technicianDropdown}</td>
+                    <td>${formattedAlocationDateTime}</td>
+                `;
+
+                // Append the row to the specific table body
+                if (call.status == "WAITING"){
+                    cbody.appendChild(row);
+                }
+                else if(call.status == "ALLOCATED"){
+                    rbody.appendChild(row);
+                }
+                else{
+                    fbody.appendChild(row);
+                }
+
+
+            });
+        }
+
+
+        // technicians
+        const tbody = document.querySelector("#techniciansTable tbody");
+
+        // Function to load table data
+        async function loadTechniciansTable() {
+            tbody.innerHTML = '';
+
+            data = await (await fetch('http://localhost:3000/support-technician')).json();
+
+            data.forEach(technician => {
+                // Create a new row
+                const row = document.createElement("tr");
+
+                // Create cells for each column
+                row.innerHTML = `
+                    <td>${technician.id}</td>
+                    <td>${technician.name}</td>
+
+                `;
+                // Append the row to the table body
+                tbody.appendChild(row);
+            });
+        }
+
+
+        
+
+
+        
+
+        // Call the functions to get data
+        loadCalls();
+        loadTechniciansTable();
+        
+
+
+    </script>
+</body>
+</html>
