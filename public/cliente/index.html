@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Abrir Chamado</title>
+    <link rel="stylesheet" href="http://localhost:8080/cliente/style.css">
+</head>
+<body>
+
+    <button class="back-button" onclick="window.history.back();">
+        &#8592;
+    </button>
+    
+    <div class="sidebar">
+        <div class="profile">
+            <img src="https://img.freepik.com/premium-photo/man-with-shirt-that-says-im-lot-calculator_1221953-49269.jpg?w=826" alt="Foto de Perfil" class="profile-pic">
+            <h3 style="font-size: 40px;">Cliente João</h3>
+            <p>Contabilidade</p>
+        </div>
+        <ul class="menu" >
+            <li><div class="new-task" onclick="show('form-container')">+ Abrir Novo Chamado</div></li>
+            <li><div class="menu-task" onclick="show('opened-calls')">Chamados abertos</div></li>
+            <li><div class="menu-task" onclick="show('execution-calls')">Chamados em execução</div></li>
+            <li><div class="menu-task" onclick="show('closed-calls')">Chamados concluídos</div></li>
+            
+            <li><div href="#"></div></li>
+        </ul>
+
+        <div class="logo"> Es-Call </div>
+    </div>
+
+    <div id="form-container" class="form-container">
+        <h2>Abrir Novo Chamado</h2>
+        <form id="openTicketForm">
+            <label for="description" style="height: 15px;">Informações sobre o chamado:</label>
+            <textarea id="name" placeholder="Título" required style="height: 50px;"></textarea>
+            <textarea id="description" placeholder="Descrição do problema" required style="height: 300px;"></textarea>
+            <button type="submit" style="font-size: 50px;">Abrir Chamado</button>
+        </form>
+    </div>
+
+
+    <div id="opened-calls" class="call-list hidden">
+        <h2>Chamados Abertos</h2>
+
+        
+    </div>
+
+    <div id="execution-calls" class="call-list hidden">
+        <h2>Chamados em Execução</h2>
+
+        
+    </div>
+
+    <div id="closed-calls" class="call-list hidden">
+        <h2>Chamados Concluídos</h2>
+        
+    </div>
+
+    <script src="http://localhost:8080/scripts.js"></script>
+
+    <script>
+
+        function show(element){
+            document.getElementById("form-container").classList.add("hidden");
+            document.getElementById("opened-calls").classList.add("hidden");
+            document.getElementById("execution-calls").classList.add("hidden");
+            document.getElementById("closed-calls").classList.add("hidden");
+            
+            document.getElementById(element).classList.remove("hidden");
+        }
+
+    </script>
+
+</body>
+</html>

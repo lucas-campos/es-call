@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestor - Chamados Abertos</title>
+    <link rel="stylesheet" href="http://localhost:8080/gestor/style.css">
+</head>
+<body>
+
+    <button class="back-button" onclick="window.history.back();">
+        &#8592;
+    </button>
+
+    <div class="sidebar">
+        <div class="profile">
+            <img src="https://img.freepik.com/premium-photo/picture-man-with-sign-that-says-he-is-smiling_1221953-49251.jpg" alt="Foto de Perfil" class="profile-pic">
+            <h3 style="font-size: 40px;">Gestor Bruno</h3>
+            <p>Gestor</p>
+        </div>
+        <ul class="menu" >
+            <li><div class="menu-task" onclick="show('opened-calls')">Chamados abertos</div></li>
+            <li><div class="menu-task" onclick="show('execution-calls')">Chamados em execução</div></li>
+            <li><div class="menu-task" onclick="show('closed-calls')">Chamados fechados</div></li>
+            <li><div class="menu-task" onclick="show('technicians-list'); loadTechniciansTable()">Técnicos</div></li>
+            <li><div class="menu-task" onclick="show('clients-list')">Clientes</div></li>
+            
+            <li><div href="#"></div></li>
+        </ul>
+
+        <div class="logo"> Es-Call </div>
+    </div>
+
+    <div id="opened-calls" class="dashboard">
+        <h2>Chamados Abertos</h2>
+        <table id="ticketsTable">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Descrição</th>
+                    <th>Status</th> 
+                    <th>Prioridade</th>
+                    <th>Técnico</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Dados dos chamados serão carregados aqui via JS -->
+            </tbody>
+        </table>
+    </div>
+
+    <div id="execution-calls" class="call-list hidden">
+        <h2>Chamados em Execução</h2>
+
+        
+    </div>
+
+    <div id="closed-calls" class="call-list hidden">
+        <h2>Chamados Concluídos</h2>
+        
+    </div>
+
+    <div id="opened-calls" class="call-list hidden">
+        <h2>Chamados Abertos</h2>
+
+        
+    </div>
+
+    <div id="technicians-list" class="call-list hidden">
+        <h2>Técnicos</h2>
+
+        <table id="techniciansTable">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nome</th>
+                    <th>Cargo</th> 
+                    <th>Chamados em andamento</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Dados dos chamados serão carregados aqui via JS -->
+            </tbody>
+        </table>
+
+        
+    </div>
+
+    <div id="clients-list" class="call-list hidden">
+        <h2>Clientes</h2>
+        
+    </div>
+
+    <script src="http://localhost:8080/scripts.js"></script>
+
+    <script>
+
+        function show(element){
+            document.getElementById("opened-calls").classList.add("hidden");
+            document.getElementById("execution-calls").classList.add("hidden");
+            document.getElementById("closed-calls").classList.add("hidden");
+            document.getElementById("technicians-list").classList.add("hidden");
+            document.getElementById("clients-list").classList.add("hidden");
+
+            document.getElementById(element).classList.remove("hidden");
+        }
+
+        // Get a reference to the tbody element
+        const tbody = document.querySelector("#techniciansTable tbody");
+
+        // Function to load table data
+        async function loadTechniciansTable() {
+            tbody.innerHTML = '';
+
+            data = await (await fetch('http://localhost:3000/support-technician')).json();
+
+            data.forEach(technician => {
+                // Create a new row
+                const row = document.createElement("tr");
+
+                // Create cells for each column
+                row.innerHTML = `
+                    <td>${technician.id}</td>
+                    <td>${technician.name}</td>
+                    <td>${technician.position}</td>
+                    <td>${technician.inProgress}</td>
+                    <td><button class="action-btn">Ação</button></td>
+                `;
+
+                // Append the row to the table body
+                tbody.appendChild(row);
+            });
+        }
+
+        // Call the function with the JSON data
+        loadTechniciansTable(techniciansData);
+
+
+    </script>
+</body>
+</html>
