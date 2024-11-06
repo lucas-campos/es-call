@@ -87,6 +87,8 @@ Gerenciamento de chamados
   
 </ul>
 
+<hr>
+
 ## Diagrama de Atividade
 
 ![Diagrama de Atividade](diagramas/diagrama_atividade.png)
