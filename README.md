@@ -92,3 +92,9 @@ Gerenciamento de chamados
 ## Diagrama de Atividade
 
 ![Diagrama de Atividade](diagramas/diagrama_atividade.png)
+
+<hr>
+
+## Diagrama de Sequência
+
+![Diagrama de Sequência](diagramas/diagrama_sequencia.png)
