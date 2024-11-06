@@ -97,4 +97,3 @@ Gerenciamento de chamados
 
 ## Diagrama de Sequência
 
-![Diagrama de Sequência](diagramas/diagrama_sequencia.png)
