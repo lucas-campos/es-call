@@ -77,4 +77,8 @@ export default class CallService {
     async finishCall(callId: number): Promise<void> {
         this.callRepository.setStatus(callId, CallConstantes.FINALIZED_STATUS);
     }
+
+    async cancelCall(callId: number): Promise<void> {
+        this.callRepository.setStatus(callId, CallConstantes.CANCELLED_STATUS);
+    }
 }

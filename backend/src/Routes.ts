@@ -2,6 +2,7 @@ import AddCallForSupportTechnicianController from "./controller/AddCallForSuppor
 import AddHighPriorityController from "./controller/call/AddHighPriorityController";
 import AddLowPriorityController from "./controller/call/AddLowPriorityController";
 import AddMediumPriorityController from "./controller/call/AddMediumPriorityController";
+import CancelCallController from "./controller/call/CancelCallController";
 import CreateNewCallController from "./controller/call/CreateNewCallController";
 import FinishCallController from "./controller/call/FinishCallController";
 import GetAllBySupportTechnicianController from "./controller/call/GetAllBySupportTechnicianController";
@@ -19,9 +20,8 @@ export default class Routes {
         server.on(HttpMethod.PUT, "/call/set-medium-priority", new AddMediumPriorityController());
         server.on(HttpMethod.PUT, "/call/set-high-priority", new AddHighPriorityController());
         server.on(HttpMethod.POST, "/call", new CreateNewCallController());
-
         server.on(HttpMethod.PUT, "/call/finish", new FinishCallController());
-       
+        server.on(HttpMethod.PUT, "/call/cancel", new CancelCallController());
         server.on(HttpMethod.GET, "/support-technician", new GetAllSupportTechnicianController());
     }
 }
