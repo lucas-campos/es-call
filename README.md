@@ -89,4 +89,4 @@ Gerenciamento de chamados
 
 ## Diagrama de Atividade
 
-![Diagrama de Atividade](images/diagrama_atividade.png)
+![Diagrama de Atividade](diagramas/diagrama_atividade.png)
