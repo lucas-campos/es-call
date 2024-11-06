@@ -44,6 +44,7 @@
                     <th>Prioridade</th>
                     <th>Data de Criação</th>
                     <th>Data de Alocação</th>
+                    <th>Finalizar/Cancelar</th>
                 </tr>
             </thead>
             <tbody>
@@ -59,6 +60,62 @@
     <script>
 
         document.getElementById("technicianId").addEventListener('propertychange', loadCalls());
+
+        // Status Dropdown
+        function dropdownStatus(id) {
+            document.getElementById("dropdownId"+id).classList.toggle("show");
+        }
+
+        // Close the dropdown menu if the user clicks outside of it
+        window.onclick = function(event) {
+            if (!event.target.matches('.dropbtn')) {
+                var dropdowns = document.getElementsByClassName("dropdown-content");
+                var i;
+                for (i = 0; i < dropdowns.length; i++) {
+                var openDropdown = dropdowns[i];
+                if (openDropdown.classList.contains('show')) {
+                    openDropdown.classList.remove('show');
+                }
+                }
+            }
+        } 
+
+        async function setFinishCancel(id, status){
+
+            let data = {
+                callId: id
+            };
+
+            let apiLink = "";
+
+            if(status == "finish"){
+                apiLink = "http://localhost:3000/call/finish";
+            }
+            else if(status == "cancel"){
+                apiLink = "http://localhost:3000/call/cancel";
+            }
+
+            try {
+                const response = await fetch(apiLink, {
+                    method: 'PUT',
+                    headers: {
+                    'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(data)
+                });
+
+                const result = await response.json();
+                console.log(result);
+                location.reload();
+
+                } 
+
+                catch (error) {
+                console.error('Error:', error);
+                location.reload();
+            }
+
+            }
 
         // Function to load calls
         async function loadCalls() {
@@ -111,6 +168,16 @@
                     formattedAlocationDateTime = "N/A";
                 }
 
+                var finishDropdown =`
+                    <div class="dropdown">
+                        <button onclick="dropdownStatus(${call.id})" class="dropbtn">${call.status}</button>
+                        <div id="dropdownId${call.id}" class="dropdown-content">
+                            <a href="#" onclick="setFinishCancel(${call.id}, 'finish')">Finalizar Chamado</a>
+                            <a href="#" onclick="setFinishCancel(${call.id}, 'cancel')">Cancelar Chamado</a>
+                        </div>
+                    </div> 
+                `
+
                 // Create cells for each column
                 row.innerHTML = `
                     <td>${call.id}</td>
@@ -119,6 +186,7 @@
                     <td>${priorityDisplay}</td>
                     <td>${formattedCreationDateTime}</td>
                     <td>${formattedAlocationDateTime}</td>
+                    <td>${finishDropdown}</td>
                 `;
 
                 // Append the row to the specific table body

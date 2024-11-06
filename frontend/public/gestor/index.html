@@ -38,7 +38,7 @@
                     <th>ID</th>
                     <th>Nome</th>
                     <th>Descrição</th>
-                    <th>Prioridade</th>
+                    <th>Prioridade <button onclick="sortByPriority()" style="font-size: 10px; padding: 1px; height: 30px;">Ordenar por Prioridade</button></th>
                     <th>Data de Criação</th>
                     <th>Técnico Responsável</th>
                     <th>Data de Alocação</th>
@@ -58,7 +58,7 @@
                     <th>ID</th>
                     <th>Nome</th>
                     <th>Descrição</th>
-                    <th>Prioridade</th>
+                    <th>Prioridade <button onclick="sortByPriority()" style="font-size: 10px; padding: 1px; height: 30px;">Ordenar por Prioridade</button></th>
                     <th>Data de Criação</th>
                     <th>Técnico Responsável</th>
                     <th>Data de Alocação</th>
@@ -78,7 +78,7 @@
                     <th>ID</th>
                     <th>Nome</th>
                     <th>Descrição</th>
-                    <th>Prioridade</th>
+                    <th>Prioridade <button onclick="sortByPriority()" style="font-size: 10px; padding: 1px; height: 30px;">Ordenar por Prioridade</button> </th>
                     <th>Data de Criação</th>
                     <th>Técnico Responsável</th>
                     <th>Data de Alocação</th>
@@ -98,7 +98,7 @@
                 <tr>
                     <th>ID</th>
                     <th>Nome</th>
-                    <th>Chamados em andamento</th>
+                    <!-- <th>Chamados em andamento</th> -->
                 </tr>
             </thead>
             <tbody>
@@ -120,6 +120,54 @@
             document.getElementById("technicians-list").classList.add("hidden");
 
             document.getElementById(element).classList.remove("hidden");
+        }
+
+        function getPriorityValue(priorityText) {
+            // Assign numerical values for sorting
+            switch(priorityText) {
+                case 'Alta': return 1;
+                case 'Média': return 2;
+                case 'Baixa': return 3;
+                default: return 4; // For unknown priority cases
+            }
+        }
+
+        function sortByPriority() {
+            const openedTable = document.getElementById("ticketsTable").querySelector("tbody");
+            const openedRows = Array.from(openedTable.querySelectorAll("tr"));
+
+            openedRows.sort((a, b) => {
+                const priorityA = a.querySelector(".dropbtn").innerText;
+                const priorityB = b.querySelector(".dropbtn").innerText;
+                return getPriorityValue(priorityA) - getPriorityValue(priorityB);
+            });
+
+            // Append rows back in sorted order
+            openedRows.forEach(row => openedTable.appendChild(row));
+
+            const runningTable = document.getElementById("runningTicketsTable").querySelector("tbody");
+            const runningRows = Array.from(runningTable.querySelectorAll("tr"));
+
+            runningRows.sort((a, b) => {
+                const priorityA = a.querySelector(".dropbtn").innerText;
+                const priorityB = b.querySelector(".dropbtn").innerText;
+                return getPriorityValue(priorityA) - getPriorityValue(priorityB);
+            });
+
+            // Append rows back in sorted order
+            runningRows.forEach(row => runningTable.appendChild(row));
+
+            const finishedTable = document.getElementById("finishedTicketsTable").querySelector("tbody");
+            const finishedRows = Array.from(finishedTable.querySelectorAll("tr"));
+
+            finishedRows.sort((a, b) => {
+                const priorityA = a.querySelector(".dropbtn").innerText;
+                const priorityB = b.querySelector(".dropbtn").innerText;
+                return getPriorityValue(priorityA) - getPriorityValue(priorityB);
+            });
+
+            // Append rows back in sorted order
+            finishedRows.forEach(row => finishedTable.appendChild(row));
         }
 
         // Priority Dropdown
