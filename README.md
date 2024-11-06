@@ -86,3 +86,7 @@ Gerenciamento de chamados
     <p>Implementar visualização dos anexos na interface do técnico.</p>
   
 </ul>
+
+## Diagrama de Atividade
+
+![Diagrama de Atividade](images/diagrama_atividade.png)
