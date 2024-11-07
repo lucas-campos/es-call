@@ -202,15 +202,19 @@
             };
 
             let apiLink = "http://localhost:3000/call/set-medium-priority"; // default prevents no sending
+            let levelDisplay = "Média";
 
             if(level == "high"){
                 apiLink = "http://localhost:3000/call/set-high-priority";
+                levelDisplay = "Alta";
             }
             if(level == "medium"){
                 apiLink = "http://localhost:3000/call/set-medium-priority";
+                levelDisplay = "Média";
             }
             if(level == "low"){
                 apiLink = "http://localhost:3000/call/set-low-priority";
+                levelDisplay = "Baixa";
             }
 
 
@@ -225,20 +229,22 @@
 
                 const result = await response.json();
                 console.log(result);
-                location.reload();
+                document.getElementById("dropdownPriorityButton"+id).innerHTML = levelDisplay;
+                // location.reload();
 
                 } 
             
                 catch (error) {
                 console.error('Error:', error);
-                location.reload();
+                document.getElementById("dropdownPriorityButton"+id).innerHTML = levelDisplay;
+                // location.reload();
             }
 
         }
 
 
         // set technician to call
-        async function setTechnician(callId, technicianId){
+        async function setTechnician(callId, technicianId, technicianName, opened=false){
             let data = {
                 "callId": callId,
                 "supportTechnicianId": technicianId
@@ -253,15 +259,19 @@
                     body: JSON.stringify(data)
                 });
 
+
+
                 const result = await response.json();
                 console.log(result);
-                location.reload();
+                document.getElementById("dropdownTechnicianButton"+callId).innerHTML = technicianName;
+                if(!opened){location.reload()};
 
                 } 
             
                 catch (error) {
                 console.error('Error:', error);
-                location.reload();
+                document.getElementById("dropdownTechnicianButton"+callId).innerHTML = technicianName;
+                if(!opened){location.reload()};
             }
 
         }
@@ -301,7 +311,7 @@
 
                 var priorityDropdown =`
                     <div class="dropdown">
-                        <button onclick="dropdownPriority(${call.id})" class="dropbtn">${priorityDisplay}</button>
+                        <button id='dropdownPriorityButton${call.id}' onclick="dropdownPriority(${call.id})" class="dropbtn">${priorityDisplay}</button>
                         <div id="dropdownPriorityId${call.id}" class="dropdown-content">
                             <a href="#" onclick="setPriority(${call.id}, 'high')">Alta</a>
                             <a href="#" onclick="setPriority(${call.id}, 'medium')">Média</a>
@@ -310,21 +320,22 @@
                     </div> 
                 `
                 
-
+                let opened=false;
                 var technicianDisplay = "N/D";
 
                 if(call.supportTechnicianId){
                     technicianDisplay = call.supportTechnicianName;
+                    opened=true;
                 }
 
                 var technicianToCall = '';
                 for (i = 0; i < supportTechnicianData.length; i++) {
-                    technicianToCall += `<a href="#" onclick="setTechnician(${call.id}, ${supportTechnicianData[i].id})">${supportTechnicianData[i].name}</a>`                    
+                    technicianToCall += `<a href="#" onclick="setTechnician(${call.id}, ${supportTechnicianData[i].id}, '${supportTechnicianData[i].name}', ${opened});" >${supportTechnicianData[i].name}</a>`                    
                 }
                 
                 var technicianDropdown =`
                 <div class="dropdown">
-                    <button onclick="dropdownTechnician(${call.id})" class="dropbtn">${technicianDisplay}</button>
+                    <button id='dropdownTechnicianButton${call.id}' onclick="dropdownTechnician(${call.id})" class="dropbtn">${technicianDisplay}</button>
                     <div id="dropdownTechnicianId${call.id}" class="dropdown-content">
                         ${technicianToCall}
                     </div>
