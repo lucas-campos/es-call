@@ -40,7 +40,7 @@ Gerenciamento de chamados
   <li>12 - Como técnico, quero visualizar todos os chamados atribuídos a mim, para que eu possa gerenciar meu fluxo de trabalho.</li>
   <li>13 - Como técnico, quero marcar um chamado como "concluído", para que o gestor e o cliente sejam notificados.</li>
   <li>14 - Como cliente, quero poder abrir chamados, especificando minhas necessidades.</li>
-  <li>15 - Como cliente, quero abrir chamados com anexos (imagens ou documentos), para fornecer mais informações ao técnico. </li>
+  <li>15 - Como cliente, quero abrir chamados com anexos e fornecer mais informações ao técnico. </li>
   <li>16 - Como cliente, quero receber atualizações sobre o status do meu chamado, para que eu saiba quando ele está sendo resolvido.</li>
   <li>17 - Como cliente, quero poder reabrir um chamado concluído se o problema persistir, para que o atendimento continue sem que eu tenha que abrir um novo chamado.</li>
   <li>18 - Como cliente, quero poder adicionar comentários em um chamado aberto, para fornecer atualizações adicionais.</li>
@@ -79,11 +79,11 @@ Gerenciamento de chamados
     <p>Atualizar o backend para lidar com a realocação de chamados no banco de dados.</p>
     <p>Adicionar notificação para o novo técnico atribuído e aviso ao técnico anterior.</p>
 
-  <li>História 15: Como cliente, quero abrir chamados com anexos (imagens ou documentos), para fornecer mais informações ao técnico.</li>
+  <li>História 15: Como cliente, quero abrir chamados e fornecer informações ao técnico.</li>
     <p></p>
-    <p>Criar funcionalidade para upload de arquivos no formulário de abertura de chamados.</p>
-    <p>Integrar o backend com um sistema de armazenamento de arquivos.</p>
-    <p>Implementar visualização dos anexos na interface do técnico.</p>
+    <p>Criar funcionalidade de abertura de chamados.</p>
+    <p>Integrar o backend com um sistema de armazenamento.</p>
+    <p>Implementar visualização do chamado na interface do técnico.</p>
   
 </ul>
 
